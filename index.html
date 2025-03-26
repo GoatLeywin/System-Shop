@@ -3,53 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop</title>
+    <title>Store</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Login Form -->
+    <h1>Store Login</h1>
     <div id="login">
-        <h2>User Login</h2>
-        <input type="text" id="username" placeholder="Enter Username" />
-        <input type="password" id="password" placeholder="Enter Password" />
+        <input type="text" id="username" placeholder="Enter username" />
+        <input type="password" id="password" placeholder="Enter password" />
         <button onclick="login()">Login</button>
-        <p id="error-message" style="color:red;"></p>
     </div>
 
-    <!-- Shop Page -->
-    <div id="shop" style="display:none;">
-        <h2>Welcome to the Shop, <span id="user-name"></span>!</h2>
-        <p>Your Balance: <span id="user-balance">0</span></p>
-        <button onclick="showTab('weapons')">Weapons</button>
-        <button onclick="showTab('skills')">Skills</button>
-        <button onclick="logout()">Logout</button>
-
-        <div id="weapons" class="tab" style="display:none;">
-            <h3>Weapons</h3>
-            <button onclick="purchaseItem('Sword', 50)">Buy Sword (50 coins)</button>
-            <button onclick="purchaseItem('Axe', 75)">Buy Axe (75 coins)</button>
-        </div>
-        
-        <div id="skills" class="tab" style="display:none;">
-            <h3>Skills</h3>
-            <button onclick="purchaseItem('Fireball', 100)">Buy Fireball Skill (100 coins)</button>
-            <button onclick="purchaseItem('Heal', 50)">Buy Heal Skill (50 coins)</button>
-        </div>
+    <div id="admin-area" style="display:none;">
+        <h2>Admin Area</h2>
+        <p>Welcome Admin!</p>
+        <!-- Admin controls (e.g., giving coins, viewing purchases) -->
+        <button onclick="giveCoins()">Give Coins</button>
+        <button onclick="viewPurchaseHistory()">View Purchase History</button>
     </div>
 
-    <!-- Admin Panel -->
-    <div id="admin" style="display:none;">
-        <h2>Admin Login</h2>
-        <input type="password" id="admin-password" placeholder="Enter Admin Password" />
-        <button onclick="adminLogin()">Login as Admin</button>
-        <div id="admin-controls" style="display:none;">
-            <h3>Give Coins</h3>
-            <input type="text" id="user-name" placeholder="Enter Username" />
-            <input type="number" id="coin-amount" placeholder="Enter amount of coins" />
-            <button onclick="giveCoins()">Give Coins</button>
-
-            <h3>User Purchase History</h3>
-            <button onclick="viewHistory()">View Purchase History</button>
-        </div>
+    <div id="user-area" style="display:none;">
+        <h2>Welcome User</h2>
+        <p>Your coin balance: <span id="coin-balance">0</span></p>
+        <!-- User controls (e.g., purchasing items) -->
     </div>
 
     <script src="app.js"></script>
