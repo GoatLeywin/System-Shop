@@ -1,20 +1,22 @@
-const adminPassword = "adminpass"; // Admin password
+// Admin password
+const adminPassword = "adminpass";
 
+// Define user data object
+let validUsers = {};
 let currentUser = null;
-let validUsers = {}; // Define an empty object for valid users
 
-// Load the user data from localStorage (if it exists)
+// Load the user data from localStorage (if exists)
 function loadUserData() {
     const savedUsers = localStorage.getItem("users");
     if (savedUsers) {
-        validUsers = JSON.parse(savedUsers);
+        validUsers = JSON.parse(savedUsers); // Load user data
     } else {
-        // If no user data is found, define some sample users
+        // Default sample users, if nothing in storage
         validUsers = {
             "user1": { password: "password123", balance: 100, history: [] },
             "user2": { password: "password456", balance: 50, history: [] }
         };
-        saveUserData(); // Save the sample users to localStorage
+        saveUserData(); // Save default users
     }
 }
 
@@ -26,13 +28,14 @@ function saveUserData() {
 // Load user data on page load
 loadUserData();
 
-// Login Function
+// Login function for regular users
 function login() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
     if (validUsers[username] && validUsers[username].password === password) {
         currentUser = username;
+        // Hide login and show shop
         document.getElementById("login").style.display = "none";
         document.getElementById("shop").style.display = "block";
         document.getElementById("user-name").textContent = username;
@@ -42,14 +45,14 @@ function login() {
     }
 }
 
-// Show the specific tab based on the category clicked
+// Show different tabs for the shop
 function showTab(tabName) {
     const tabs = document.querySelectorAll(".tab");
     tabs.forEach((tab) => {
-        tab.style.display = "none";
+        tab.style.display = "none"; // Hide all tabs
     });
 
-    document.getElementById(tabName).style.display = "block";
+    document.getElementById(tabName).style.display = "block"; // Show selected tab
 }
 
 // Handle purchasing an item
@@ -72,15 +75,13 @@ function purchaseItem(item, cost) {
     }
 }
 
-// Admin Login Function
+// Admin login function
 function adminLogin() {
     const password = document.getElementById("admin-password").value;
 
     if (password === adminPassword) {
         alert("Admin logged in!");
-        // Show admin controls
-        const adminControls = document.getElementById("admin-controls");
-        adminControls.style.display = "block";
+        document.getElementById("admin-controls").style.display = "block";
     } else {
         alert("Incorrect admin password.");
     }
@@ -111,7 +112,7 @@ function viewHistory() {
     alert(history);
 }
 
-// Log out the current user
+// Logout function for regular users
 function logout() {
     currentUser = null;
     document.getElementById("login").style.display = "block";
