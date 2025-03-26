@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divine Coin Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="login">
+        <h1>Welcome to the Divine Coin Shop</h1>
+        <input type="text" id="username" placeholder="Enter Username">
+        <input type="password" id="password" placeholder="Enter Password">
+        <button onclick="login()">Login</button>
+        <p id="error-message" style="color:red;"></p>
+    </div>
+
+    <div id="shop" style="display:none;">
+        <h1>Divine Coin Shop</h1>
+        <p>Balance: <span id="user-balance">0</span> Coins</p>
+
+        <!-- Shop Tabs -->
+        <div>
+            <button onclick="showTab('weapons')">Weapons</button>
+            <button onclick="showTab('skills')">Skills</button>
+            <button onclick="showTab('potions')">Potions</button>
+        </div>
+
+        <!-- Weapons Tab -->
+        <div id="weapons" class="tab" style="display:none;">
+            <h2>Weapons</h2>
+            <div class="item" onclick="purchaseItem('Sword', 10)">
+                <p>Sword - 10 Coins</p>
+            </div>
+            <div class="item" onclick="purchaseItem('Bow', 15)">
+                <p>Bow - 15 Coins</p>
+            </div>
+        </div>
+
+        <!-- Skills Tab -->
+        <div id="skills" class="tab" style="display:none;">
+            <h2>Skills</h2>
+            <div class="item" onclick="purchaseItem('Fireball', 20)">
+                <p>Fireball Skill - 20 Coins</p>
+            </div>
+            <div class="item" onclick="purchaseItem('Healing', 25)">
+                <p>Healing Skill - 25 Coins</p>
+            </div>
+        </div>
+
+        <!-- Potions Tab -->
+        <div id="potions" class="tab" style="display:none;">
+            <h2>Potions</h2>
+            <div class="item" onclick="purchaseItem('Healing Potion', 5)">
+                <p>Healing Potion - 5 Coins</p>
+            </div>
+        </div>
+
+        <!-- Admin Login -->
+        <div id="admin">
+            <h2>Admin Controls</h2>
+            <input type="password" id="admin-password" placeholder="Admin Password">
+            <button onclick="adminLogin()">Admin Login</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
