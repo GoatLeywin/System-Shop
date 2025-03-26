@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#login, #shop {
+    margin-top: 50px;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.tab {
+    display: none;
+    margin-top: 20px;
+}
+
+.item {
+    background: #f0f0f0;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+#admin {
+    display: none;
+}
