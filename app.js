@@ -1,120 +1,54 @@
-// Admin password
-const adminPassword = "adminpass";
+// Store users and their coins locally (simulated in this example)
+let users = {
+    "user1": { password: "userpass1", coins: 100 },
+    "user2": { password: "userpass2", coins: 200 }
+};
 
-// Define user data object
-let validUsers = {};
-let currentUser = null;
+// Admin Credentials
+const adminCredentials = { username: "adminuser", password: "adminpass" };
 
-// Load the user data from localStorage (if exists)
-function loadUserData() {
-    const savedUsers = localStorage.getItem("users");
-    if (savedUsers) {
-        validUsers = JSON.parse(savedUsers); // Load user data
-    } else {
-        // Default sample users, if nothing in storage
-        validUsers = {
-            "user1": { password: "password123", balance: 100, history: [] },
-            "user2": { password: "password456", balance: 50, history: [] }
-        };
-        saveUserData(); // Save default users
-    }
-}
-
-// Save the user data to localStorage
-function saveUserData() {
-    localStorage.setItem("users", JSON.stringify(validUsers));
-}
-
-// Load user data on page load
-loadUserData();
-
-// Login function for regular users
+// Function to handle login
 function login() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
-    if (validUsers[username] && validUsers[username].password === password) {
-        currentUser = username;
-        // Hide login and show shop
-        document.getElementById("login").style.display = "none";
-        document.getElementById("shop").style.display = "block";
-        document.getElementById("user-name").textContent = username;
-        document.getElementById("user-balance").textContent = validUsers[username].balance;
-    } else {
-        document.getElementById("error-message").textContent = "Invalid username or password!";
+    // Check if the login is for the admin
+    if (username === adminCredentials.username && password === adminCredentials.password) {
+        // Hide user login
+        document.getElementById('login').style.display = 'none';
+        // Show the admin area
+        document.getElementById('admin-area').style.display = 'block';
+        console.log("Logged in as Admin");
+    } 
+    // Check if the login is for a regular user
+    else if (users[username] && users[username].password === password) {
+        // Hide user login
+        document.getElementById('login').style.display = 'none';
+        // Show the user area
+        document.getElementById('user-area').style.display = 'block';
+        // Display user coin balance
+        document.getElementById('coin-balance').innerText = users[username].coins;
+        console.log("Logged in as User");
+    } 
+    else {
+        alert("Invalid credentials. Please try again.");
     }
 }
 
-// Show different tabs for the shop
-function showTab(tabName) {
-    const tabs = document.querySelectorAll(".tab");
-    tabs.forEach((tab) => {
-        tab.style.display = "none"; // Hide all tabs
-    });
-
-    document.getElementById(tabName).style.display = "block"; // Show selected tab
-}
-
-// Handle purchasing an item
-function purchaseItem(item, cost) {
-    if (currentUser) {
-        const user = validUsers[currentUser];
-        if (user.balance >= cost) {
-            user.balance -= cost;
-            user.history.push(item);
-            alert(`${item} purchased!`);
-
-            // Update balance in the UI
-            document.getElementById("user-balance").textContent = user.balance;
-
-            // Save user data to localStorage after purchase
-            saveUserData();
-        } else {
-            alert("Not enough coins!");
-        }
-    }
-}
-
-// Admin login function
-function adminLogin() {
-    const password = document.getElementById("admin-password").value;
-
-    if (password === adminPassword) {
-        alert("Admin logged in!");
-        document.getElementById("admin-controls").style.display = "block";
-    } else {
-        alert("Incorrect admin password.");
-    }
-}
-
-// Admin gives coins to users
+// Admin control functions
 function giveCoins() {
-    const username = document.getElementById("user-name").value;
-    const coins = parseInt(document.getElementById("coin-amount").value);
+    const username = prompt("Enter the username to give coins to:");
+    const amount = parseInt(prompt("Enter the number of coins to give:"), 10);
 
-    if (validUsers[username] && coins > 0) {
-        validUsers[username].balance += coins;
-        alert(`${coins} coins given to ${username}`);
-
-        // Save user data to localStorage after giving coins
-        saveUserData();
+    if (users[username]) {
+        users[username].coins += amount;
+        alert(`${amount} coins have been added to ${username}'s balance.`);
     } else {
-        alert("Invalid username or coin amount.");
+        alert("User not found.");
     }
 }
 
-// Admin views user purchase history
-function viewHistory() {
-    let history = "";
-    for (const user in validUsers) {
-        history += `${user}: ${validUsers[user].history.join(", ")}<br>`;
-    }
-    alert(history);
+function viewPurchaseHistory() {
+    alert("Viewing purchase history (This is a placeholder).");
 }
 
-// Logout function for regular users
-function logout() {
-    currentUser = null;
-    document.getElementById("login").style.display = "block";
-    document.getElementById("shop").style.display = "none";
-}
